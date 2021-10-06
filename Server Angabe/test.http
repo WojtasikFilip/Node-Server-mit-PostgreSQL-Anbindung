@@ -1,1 +1,9 @@
 GET http://127.0.0.1:3000/cars
+###
+PATCH http://127.0.0.1:3000/cars/1
+Content-Type: application/json
+
+{
+    "title":"Filip war hier",
+    "status":"sold"
+}
