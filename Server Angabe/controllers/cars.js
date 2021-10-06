@@ -16,4 +16,9 @@ const deleteCar = asyncHandler(async (req, res) => {
   res.status(code).json(data);
 });
 
-module.exports = { getCars, changeStatusCar, deleteCar };
+const addCar = asyncHandler(async (req, res) => {
+  const { code, data } = await carFunction.addCar(req.body);
+  res.status(code).json(data);
+});
+
+module.exports = { getCars, changeStatusCar, deleteCar, addCar };
