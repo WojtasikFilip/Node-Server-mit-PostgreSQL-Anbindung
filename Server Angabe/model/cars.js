@@ -11,7 +11,7 @@ async function getCars() {
 async function changeStatusCar(id, data) {
   try {
     const { rows } = await db.query('SELECT * from cars where id = $1', [id]);
-    if (!rows) {
+    if (rows.length === 0) {
       return {
         data: 'Car not found',
         code: 404,
@@ -33,4 +33,20 @@ async function changeStatusCar(id, data) {
     };
   }
 }
-module.exports = { getCars, changeStatusCar };
+
+async function deleteCar(id) {
+  const { rows } = await db.query('SELECT * from cars where id = $1', [id]);
+  if (rows.length === 0) {
+    return {
+      data: 'Car not found.',
+      code: 404,
+    };
+  }
+  await db.query('DELETE from cars where id = $1', [id]);
+  return {
+    data: `Car with the id ${id} was deleted.`,
+    code: 200,
+  };
+}
+
+module.exports = { getCars, changeStatusCar, deleteCar };
